@@ -1,0 +1,22 @@
+version: '1.1'
+services:
+  db:
+    image: mongo:4.1.2
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+  
+  app:
+    build: .
+    restart: always
+    ports:
+      - 9090:9090
+    depends_on:
+      - db
+volumes:
+  mongo-data:
